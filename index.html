@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineFlix - Il Tuo Mondo di Intrattenimento</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <header class="header">
@@ -19,31 +22,35 @@
 
     <main>
         <section class="hero-section">
-           <div class="slider-container">
-    <div class="slide active" style="background-image: url('images/viaggio-di-andromeda.jpg');">
-        <div class="hero-buttons">
-            <button class="btn-watch">Guarda Ora</button>
-            <button class="btn-info">Altre Info</button>
-        </div>
-    </div>
+            <div class="swiper-container hero-swiper"> <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image: url('images/viaggio-di-andromeda.jpg');">
+                        <div class="hero-buttons">
+                            <button class="btn-watch">Guarda Ora</button>
+                            <button class="btn-info">Altre Info</button>
+                        </div>
+                    </div>
 
-                <div class="slide" style="background-image: url('images/zombie.jpeg');">
-                    <div class="hero-buttons">
-                        <button class="btn-watch">Guarda Ora</button>
-                        <button class="btn-info">Altre Info</button>
+                    <div class="swiper-slide" style="background-image: url('images/zombie.jpeg');">
+                        <div class="hero-buttons">
+                            <button class="btn-watch">Guarda Ora</button>
+                            <button class="btn-info">Altre Info</button>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide" style="background-image: url('images/the-ghost-of-venice.png');">
+                        <div class="hero-buttons">
+                            <button class="btn-watch">Guarda Ora</button>
+                            <button class="btn-info">Altre Info</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="slide" style="background-image: url('images/the-ghost-of-venice.png');">
-                    <div class="hero-buttons">
-                        <button class="btn-watch">Guarda Ora</button>
-                        <button class="btn-info">Altre Info</button>
-                    </div>
-                </div>
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
-            <div class="slider-dots">
-                </div>
-        </section>
+            </section>
 
         <section class="quick-nav" role="navigation" aria-label="Navigazione rapida per categorie">
             <button class="nav-item">Film</button>
@@ -193,79 +200,44 @@
         <p>&copy; 2025 CineFlix. Tutti i diritti riservati.</p>
     </footer>
 
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const sliderContainer = document.querySelector('.slider-container');
-            const slides = document.querySelectorAll('.slide');
-            const dotsContainer = document.querySelector('.slider-dots');
-            let currentSlideIndex = 0;
-            let slideInterval; // Variabile per mantenere l'intervallo di scorrimento automatico
+            // Rimuovi tutte le variabili e funzioni del tuo slider personalizzato
+            // come sliderContainer, slides, dotsContainer, showSlide, goToSlide, nextSlide, ecc.
+            // Queste non sono più necessarie con Swiper.
 
-            // Crea i pallini dinamicamente in base al numero di slide
-            slides.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.classList.add('dot');
-                if (index === 0) {
-                    dot.classList.add('active'); // Imposta il primo pallino come attivo inizialmente
-                }
-                dot.addEventListener('click', () => goToSlide(index));
-                dotsContainer.appendChild(dot);
+            // ***********************************************************************************
+            // INIZIALIZZAZIONE SWIPER
+            // ***********************************************************************************
+            new Swiper('.hero-swiper', { // Usa la classe '.hero-swiper' che abbiamo aggiunto all'HTML
+                // Opzioni di configurazione di Swiper
+                loop: true, // Se vuoi che le slide scorrano in loop infinito
+                autoplay: {
+                    delay: 5000, // Cambia slide ogni 5 secondi
+                    disableOnInteraction: false, // Continua l'autoplay anche dopo l'interazione manuale
+                },
+                speed: 600, // Durata della transizione in ms (equivalente al tuo 0.6s)
+
+                // Paginazione (i "pallini")
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+
+                // Bottoni di navigazione (frecce)
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                
+                // Effetti di transizione (se vuoi provare altro)
+                // effect: 'slide', // Default, puoi provare 'fade', 'cube', 'coverflow', 'flip'
             });
-
-            const dots = document.querySelectorAll('.dot'); // Ottieni tutti i pallini dopo che sono stati creati
-
-            // Funzione per mostrare una slide specifica
-            function showSlide(index) {
-                // Nascondi tutte le slide
-                slides.forEach(slide => slide.classList.remove('active'));
-                // Disattiva tutti i pallini
-                dots.forEach(dot => dot.classList.remove('active'));
-
-                // Mostra la slide selezionata e attiva il pallino corrispondente
-                slides[index].classList.add('active');
-                dots[index].classList.add('active');
-
-                // ***********************************************************************************
-                // MODIFICA PER SPOSARE IN PIXEL (OPZIONE 1)
-                // Calcola la larghezza di una singola slide in pixel
-                const slideWidth = sliderContainer.offsetWidth; // O slides[0].offsetWidth; dovrebbero essere uguali
-                sliderContainer.style.transform = `translateX(-${index * slideWidth}px)`;
-                // ***********************************************************************************
-            }
-
-            // Funzione per andare a una slide specifica (usata dai pallini)
-            function goToSlide(index) {
-                currentSlideIndex = index;
-                showSlide(currentSlideIndex);
-                resetInterval(); // Resetta l'intervallo quando l'utente cambia slide manualmente
-            }
-
-            // Funzione per andare alla slide successiva
-            function nextSlide() {
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                showSlide(currentSlideIndex);
-            }
-
-            // Avvia lo scorrimento automatico
-            function startSlider() {
-                slideInterval = setInterval(nextSlide, 5000); // Cambia slide ogni 5 secondi (5000ms)
-            }
-
-            // Cancella e riavvia l'intervallo dello slider automatico
-            function resetInterval() {
-                clearInterval(slideInterval);
-                startSlider();
-            }
-
-            // Inizializza lo slider
-            showSlide(currentSlideIndex);
-            startSlider();
-
-            // Aggiungi un event listener per il ridimensionamento della finestra
-            // Questo assicura che lo slider si riallinei correttamente se l'utente ridimensiona il browser
-            window.addEventListener('resize', () => {
-                showSlide(currentSlideIndex); // Ricalcola e applica la posizione della slide corrente
-            });
+            // ***********************************************************************************
+            // FINE INIZIALIZZAZIONE SWIPER
+            // ***********************************************************************************
         });
     </script>
 </body>
