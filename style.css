@@ -58,14 +58,11 @@ body {
     height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: contain; /* Modificato da 'cover' a 'contain' */
-    /* Rimosso flex-direction, justify-content, align-items da .slide */
+    background-size: cover; /* Soluzione consigliata per riempire lo schermo */
     padding: 0 40px; /* Mantieni il padding per i bottoni */
     box-shadow: inset 0 -50px 80px rgba(0, 0, 0, 0.9); /* Sfumatura in basso */
     position: relative; /* Fondamentale per posizionare i bottoni in modo assoluto */
 }
-
-/* Rimosso .hero-content e i suoi stili */
 
 /* Modifiche per i bottoni nella hero section */
 .hero-buttons {
@@ -221,8 +218,6 @@ body {
 .grid-item p {
     display: none;
 }
-
-/* Rimosso .grid-item-info e i suoi stili, dato che non vogliamo testo al passaggio del mouse */
 
 
 /* Footer */
