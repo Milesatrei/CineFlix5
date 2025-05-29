@@ -58,7 +58,7 @@ body {
     height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: contain; /* Modificato da 'cover' a 'contain' */
     /* Rimosso flex-direction, justify-content, align-items da .slide */
     padding: 0 40px; /* Mantieni il padding per i bottoni */
     box-shadow: inset 0 -50px 80px rgba(0, 0, 0, 0.9); /* Sfumatura in basso */
