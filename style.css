@@ -64,6 +64,11 @@ body {
     padding: 0 40px; /* Mantieni il padding per i bottoni */
     box-shadow: inset 0 -50px 80px rgba(0, 0, 0, 0.9); /* Sfumatura in basso */
     position: relative; /* Fondamentale per posizionare i bottoni in modo assoluto */
+    
+    /* *********************************************************************************** */
+    /* AGGIUNGI QUESTA RIGA PER RISOLVERE IL DISALLINEAMENTO CUMULATIVO */
+    box-sizing: border-box; 
+    /* *********************************************************************************** */
 }
 
 /* Stili per i pallini di Swiper (.swiper-pagination) */
@@ -102,15 +107,6 @@ body {
 .swiper-button-next:hover {
     color: #e50914; /* Colore al passaggio del mouse */
 }
-
-/* Rimuovi gli stili del tuo vecchio slider: */
-/*
-.slider-container { ... }
-.slide { ... (le proprietà sono state trasferite a .swiper-slide) }
-.slider-dots { ... }
-.dot { ... }
-.dot.active { ... }
-*/
 
 /* *********************************************************************************** */
 /* FINE AGGIORNAMENTI STILI SWIPER */
