@@ -51,7 +51,7 @@
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
-            </section>
+        </section>
 
         <section class="quick-nav" role="navigation" aria-label="Navigazione rapida per categorie">
             <button class="nav-item">Film</button>
@@ -205,36 +205,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ***********************************************************************************
-            // INIZIALIZZAZIONE SWIPER
-            // ***********************************************************************************
-            new Swiper('.hero-swiper', { // Usa la classe '.hero-swiper' che abbiamo aggiunto all'HTML
-                // Opzioni di configurazione di Swiper
-                loop: true, // Se vuoi che le slide scorrano in loop infinito
+            new Swiper('.hero-swiper', {
+                loop: true,
                 autoplay: {
-                    delay: 5000, // Cambia slide ogni 5 secondi
-                    disableOnInteraction: false, // Continua l'autoplay anche dopo l'interazione manuale
+                    delay: 5000,
+                    disableOnInteraction: false,
                 },
-                speed: 600, // Durata della transizione in ms (equivalente al tuo 0.6s)
+                speed: 600,
+                
+                // AGGIUNGI QUESTA OPZIONE PER MITIGARE IL SUB-PIXEL RENDERING
+                roundLengths: true, 
 
-                // Paginazione (i "pallini")
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
                 },
 
-                // Bottoni di navigazione (frecce)
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-                
-                // Effetti di transizione (se vuoi provare altro)
-                // effect: 'slide', // Default, puoi provare 'fade', 'cube', 'coverflow', 'flip'
             });
-            // ***********************************************************************************
-            // FINE INIZIALIZZAZIONE SWIPER
-            // ***********************************************************************************
         });
     </script>
 </body>
