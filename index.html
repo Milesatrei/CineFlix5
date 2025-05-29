@@ -20,7 +20,7 @@
     <main>
         <section class="hero-section">
            <div class="slider-container">
-    <div class="slide" style="background-image: url('images/viaggio-di-andromeda.jpg');">
+    <div class="slide active" style="background-image: url('images/viaggio-di-andromeda.jpg');">
         <div class="hero-buttons">
             <button class="btn-watch">Guarda Ora</button>
             <button class="btn-info">Altre Info</button>
@@ -225,8 +225,29 @@
                 slides[index].classList.add('active');
                 dots[index].classList.add('active');
 
-                // Regola la proprietà transform del contenitore dello slider per mostrare la slide corretta
-                sliderContainer.style.transform = `translateX(-${index * 100}%)`;
+                // ***********************************************************************************
+                // INIZIO MODIFICHE PER MITIGARE SUB-PIXEL RENDERING
+                // Scegli SOLO UNA di queste opzioni (o testale una alla volta)
+                // ***********************************************************************************
+
+                // Opzione 1: Arrotondamento del valore percentuale (il più consigliato da provare per primo)
+                const translateXValue = Math.round(index * 100);
+                sliderContainer.style.transform = `translateX(-${translateXValue}%)`;
+                // Oppure prova con Math.floor:
+                // const translateXValue = Math.floor(index * 100);
+                // sliderContainer.style.transform = `translateX(-${translateXValue}%)`;
+                // Oppure arrotonda a zero decimali (utile se il problema è la precisione dei float):
+                // sliderContainer.style.transform = `translateX(-${(index * 100).toFixed(0)}%)`;
+
+                // Opzione 2: Piccolo aggiustamento in pixel (da usare con cautela, è un "hack")
+                // Se la riga sopra non funziona, prova questa (disattiva la riga sopra prima)
+                // sliderContainer.style.transform = `translateX(calc(-${index * 100}% - 1px))`; // Sposta 1px in più a sinistra
+                // Oppure:
+                // sliderContainer.style.transform = `translateX(calc(-${index * 100}% + 1px))`; // Sposta 1px in più a destra
+
+                // ***********************************************************************************
+                // FINE MODIFICHE PER MITIGARE SUB-PIXEL RENDERING
+                // ***********************************************************************************
             }
 
             // Funzione per andare a una slide specifica (usata dai pallini)
